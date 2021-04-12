@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="./config.js"></script>
+    <style>
+        html {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+        }
+
+        .result {
+            font-size: 24px;
+        }
+
+        .ball {
+            width: 20px;
+            height: 20px;
+            border-radius: 10px;
+            background-color: red;
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            transform-origin: 10px 10px;
+            transform: translate(0, 0);
+        }
+    </style>
+</head>
+<body>
+<div class="ball"></div>
+<div class="container">
+    <img src="img/duel1.png" height="960" width="540"/>
+    <img src="img/battle1.png" height="960" width="540"/>
+    <img src="img/battle2.png" height="960" width="540"/>
+    <img src="img/fail.png" height="960" width="540"/>
+    <img src="img/end1.png" height="960" width="540"/>
+    <img src="img/end2.png" height="960" width="540"/>
+    <div class="result"></div>
+</div>
+<div class="btns">
+</div>
+<script>
+    const body = document.body
+    const r = document.querySelector('.result')
+    const btnsEl = document.querySelector('.btns')
+    const ball = document.querySelector('.ball')
+
+    // 渲染页面
+    // 有多少图片渲染多少个按钮
+    const imgs = document.querySelectorAll('img')
+    const btns = []
+    // 当前显示的index
+    let currentIndex = 0
+    for (let i = 0; i < imgs.length; i++) {
+        let img = imgs[i]
+        console.log(img.src)
+        let splits = img.src.split('/')
+        let name = splits[splits.length - 1]
+
+        // 隐藏不是第一个的全部图片
+        if (i !== currentIndex) {
+            img.style.display = 'none'
+        }
+
+        let btn = document.createElement('button')
+        btn.innerHTML = name
+
+        // 添加点击事件
+        btn.addEventListener('click', () => {
+            if (currentIndex === i) return
+            imgs[currentIndex].style.display = 'none'
+            imgs[i].style.display = 'block'
+            currentIndex = i
+        })
+
+        btnsEl.appendChild(btn)
+        btns.push(btn)
+    }
+
+
+    body.addEventListener('click', ev => {
+        if (ev.clientX > config.w || ev.clientY > config.h) return
+
+        r.innerText = `x: ${ev.clientX}\ny: ${ev.clientY}`
+        // ld -s 0 input tap 259 597
+        console.log(`ld -s 0 input tap ${ev.clientX} ${ev.clientY}`)
+        console.log(`${ev.clientX}, ${ev.clientY}`)
+        ball.style.transform = `translate(${ev.clientX}px, ${ev.clientY}px)`
+    })
+</script>
+</body>
+</html>
