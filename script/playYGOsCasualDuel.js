@@ -1,6 +1,6 @@
 // 玩儿游戏王的休闲决斗（同样适用于排位决斗）
 const runLd = require(`../core/runLd`)
-const tap = require(`../core/tapPlus`)
+const tap = require(`../core/tap`)
 
 let workOver = true // 用于监视器查看是否执行完了一轮操作
 

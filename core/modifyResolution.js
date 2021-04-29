@@ -1,4 +1,4 @@
-const {exec} = require('./execPlus')
+const {exec} = require('./exec')
 
 const modifyResolution = () => {
     const config = process.env

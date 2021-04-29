@@ -1,4 +1,4 @@
-const {exec} = require('./execPlus')
+const {exec} = require('./exec')
 const runApp = (packageName) => {
     // ldconsole.exe runapp --index 0 --packagename com.netease.ma84
     exec(`ldconsole.exe runapp --index ${process.env.mnqIndex} --packagename ${packageName}`)
