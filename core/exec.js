@@ -1,39 +1,28 @@
-const {exec} = require('child_process')
-const _exec = (cmd) => {
-    return new Promise(resolve => {
-        runCmd(cmd, resolve)
-    })
+const {spawn} = require('child_process')
 
-    function runCmd(cmd, resolve) {
-        let hasError = false
-        // const bat = exec(`chcp 65001 && ${cmd}`, {cwd: process.env.workspace})
-        const bat = exec(cmd, {
-            cwd: process.env.workspace,
-            timeout: 5000,
-            maxBuffer: 1024 * 1024 * 100 // 100M缓存
-        })
-        bat.stdout.on('data', (data) => {
-            console.log(data.toString())
-        })
-        bat.stderr.on('data', (data) => {
-            console.log('error')
-            console.error(data.toString())
+class Executor {
+    executor
 
-            // 异常后重试
-            hasError = true
-            // 5s后重试
-            console.log('5s后重试')
-            setTimeout(() => {
-                bat.kill()
-                runCmd(cmd, resolve)
-            }, 5000)
-        })
+    constructor() {
+        this.executor = spawn(`cmd`)
+        this.executor.stdin.setEncoding('utf-8')
+        // 将输出内容显示到主进程控制台
+        // this.executor.stdout.pipe(process.stdout)
+        // 切换工作空间
+        this.executor.stdin.write(`cd ${process.env.workspace}\n`)
+    }
 
-        bat.on('exit', (code) => {
-            if (!hasError)
-                resolve()
-        })
+    exec(cmd) {
+        this.executor.stdin.write(`${cmd}\n`)
     }
 }
 
-module.exports = _exec
+Executor.getInstance = () => {
+    if (!Executor.instance) {
+        Executor.instance = new Executor()
+        Executor.instance.exec = Executor.instance.exec.bind(Executor.instance)
+    }
+    return Executor.instance
+}
+
+module.exports = Executor.getInstance()

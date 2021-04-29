@@ -1,13 +1,9 @@
-const exec = require('./exec')
+const {exec} = require('./execPlus')
 
 const modifyResolution = () => {
     const config = process.env
-    return new Promise(resolve => {
-        exec(`ldconsole.exe modify --index ${config.mnqIndex} --resolution ${config.w},${config.h},${config.dpi}`).then(() => {
-            console.log('modify resolution over')
-            resolve()
-        })
-    })
+    exec(`ldconsole.exe modify --index ${config.mnqIndex} --resolution ${config.w},${config.h},${config.dpi}`)
+    console.log('modify resolution over')
 }
 
 module.exports = modifyResolution

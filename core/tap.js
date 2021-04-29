@@ -1,4 +1,4 @@
-const {exec} = require(`./execPlus`)
+const {exec} = require('./execPlus')
 
 const tap = (x, y, delay) => {
     return new Promise(resolve => {

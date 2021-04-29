@@ -1,5 +1,5 @@
 // 启动雷电ld.exe
-const {exec} = require(`./execPlus`)
+const {exec} = require('./execPlus')
 
 const runLd = () => {
     return new Promise(resolve => {
