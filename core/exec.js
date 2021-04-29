@@ -15,7 +15,6 @@ const _exec = (cmd) => {
         bat.stdout.on('data', (data) => {
             console.log(data.toString())
         })
-
         bat.stderr.on('data', (data) => {
             console.log('error')
             console.error(data.toString())

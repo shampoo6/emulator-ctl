@@ -46,8 +46,8 @@ const monitor = () => {
 const startDuel = () => {
 
     return new Promise(resolve => {
-        tap(257, 394, 1000).then(() => {
-            tap(257, 394, 1000).then(() => {
+        tap(257, 394, 500).then(() => {
+            tap(257, 394, 500).then(() => {
                 resolve()
             })
         })

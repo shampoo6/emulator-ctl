@@ -6,7 +6,7 @@ const config = {
     dpi: 240,
     packageName: 'com.netease.ma84',
     // scriptName: 'test' // 要执行的脚本名称
-    scriptName: 'playCasualDuel' // 要执行的脚本名称
+    scriptName: 'playYGOsCasualDuel' // 要执行的脚本名称
 }
 
 module.exports = config
